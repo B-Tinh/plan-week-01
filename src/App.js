@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
-import SearchBar from './components/SearchBar';
-import VideoDetail from './components/VideoDetail';
-import VideoList from './components/VideoList';
+import SearchBar from './containers/SearchBar';
+import VideoDetail from './containers/VideoDetail';
+import VideoList from './containers/VideoList';
 
 
 class App extends Component {
 
-  onSearchParam = () =>{
-  }
+
   render() {
     return (
       <div>
         <div className="container">
-          <SearchBar onSearch = {this.onSearchParam}/>
-          <div className="row">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <SearchBar />
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="row">
                 <VideoDetail />
                 <VideoList />
               </div>
             </div>
           </div>
+
         </div>
       </div>
     );

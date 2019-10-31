@@ -31,6 +31,7 @@
 .VideoDetail {
   border: 1px solid red;
   height: 500px;
+  margin-top: 20px;
 }
 
 .ShowVideo {
@@ -47,6 +48,7 @@
 .VideoList {
   border: 1px solid green;
   height: 400px;
+  margin-top: 20px;
 }
 
 .VideoItem {
