@@ -20,3 +20,51 @@
 .App-link {
   color: #09d3ac;
 }
+.SearchBar {
+  background: black;
+  height: 75px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+.VideoDetail {
+  border: 1px solid red;
+  height: 500px;
+}
+
+.ShowVideo {
+  border: 1px solid blue;
+  height: 300px;
+}
+
+.ShowVideoTitle {
+  border: 1px solid yellow;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.VideoList {
+  border: 1px solid green;
+  height: 400px;
+}
+
+.VideoItem {
+  border: 1px solid black;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.ImgVideo {
+  border: 1px solid turquoise;
+  height: 80px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.VideoName {
+  border: 1px solid steelblue;
+  height: 80px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
