@@ -6,11 +6,14 @@ import VideoList from './components/VideoList';
 
 
 class App extends Component {
+
+  onSearchParam = () =>{
+  }
   render() {
     return (
       <div>
         <div className="container">
-          <SearchBar />
+          <SearchBar onSearch = {this.onSearchParam}/>
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="row">
