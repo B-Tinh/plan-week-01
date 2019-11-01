@@ -10,7 +10,7 @@ class VideoItem extends Component {
               <div className="ImgVideo"></div>
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-              <div className="VideoName"></div>
+              <div className="VideoName">{this.props.name}</div>
             </div>
           </div>
         </div>
