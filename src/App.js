@@ -24,19 +24,27 @@ class App extends Component {
         keyWord: textSearch,
         part: 'snippet',
         maxResults: 5,
-        key: 'AIzaSyDcaMOVzZH-eNsMREv8BhFrAyUkp7Ife_I'
+        key: 'AIzaSyB9e421HS5kwj7tu65mXPeV5ygb4cIKr5k'
       }
       
     })
+    console.log('res',res)
     this.setState({
       videos: res.data.items
     })
-    console.log(this.state.videos)
+    console.log('video',this.state.videos)
+  }
+
+  handleVideoSelect = (video) => {
+    this.setState({
+      selectedVideo: video
+    });
+    
   }
 
 
-
-  render() {   
+  render() {
+    console.log("selected", this.state.selectedVideo)  
     return(     
       <div>
         <div className="container">
@@ -44,9 +52,8 @@ class App extends Component {
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="row">
-                <VideoDetail />
-                <VideoList 
-                />
+                <VideoDetail video={this.state.videos}/>
+                <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos}/>
               </div>
             </div>
           </div>
