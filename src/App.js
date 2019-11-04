@@ -42,7 +42,6 @@ class App extends Component {
 
 
   render() {
-    console.log("selected", this.state.selectedVideo)  
     return(     
       <div>
         <div className="container">

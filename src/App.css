@@ -37,6 +37,10 @@
   border: 1px solid blue;
   height: 300px;
 }
+iframe{
+  width: 100%;
+  height: 100%;
+}
 
 .ShowVideoTitle {
   border: 1px solid yellow;
@@ -47,12 +51,16 @@
 .VideoList {
   border: 1px solid green;
   height: auto;
+  cursor: pointer;
 }
 
 .VideoItem {
   border: 1px solid black;
   height: 100px;
   margin-top: 10px;
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer;
 }
 
 .ImgVideo {

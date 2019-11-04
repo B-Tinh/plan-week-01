@@ -12,10 +12,10 @@ class VideoDetail extends Component {
       <div>
         <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <div className="VideoDetail">
-            <div className="ShowVideo"><iframe src={videoSrc} allowFullScreen title='Video player' /></div>
+            <div className="ShowVideo"><iframe src={videoSrc}  title='Video player' /></div>
             <div className="ShowVideoTitle">
               <h2>Video Title: {this.props.video.snippet.title}</h2>
-              <p>Description Video:</p>
+              <p>Description Video: {this.props.video.snippet.description}</p>
             </div>
           </div>
         </div>
