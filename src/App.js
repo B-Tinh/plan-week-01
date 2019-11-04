@@ -6,7 +6,7 @@ import VideoList from './components/VideoList';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://www.googleapis.com/youtube/v3/'
+  baseURL: 'https://www.googleapis.com/youtube/v3/',
 })
 
 class App extends Component {
@@ -21,18 +21,16 @@ class App extends Component {
   onSearchForm = async (textSearch) => {
     const res = await axiosInstance.get('/search', {
       params: {
-        keyWord: textSearch,
+        q: textSearch,
         part: 'snippet',
         maxResults: 5,
         key: 'AIzaSyB9e421HS5kwj7tu65mXPeV5ygb4cIKr5k'
       }
       
     })
-    console.log('res',res)
     this.setState({
       videos: res.data.items
     })
-    console.log('video',this.state.videos)
   }
 
   handleVideoSelect = (video) => {
@@ -52,7 +50,7 @@ class App extends Component {
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="row">
-                <VideoDetail video={this.state.videos}/>
+                <VideoDetail video={this.state.selectedVideo}/>
                 <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos}/>
               </div>
             </div>

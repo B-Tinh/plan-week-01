@@ -21,14 +21,12 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div className="page-header SearchBar">
-              <form onSubmit={this.onHandleSubmit}>
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div className="page-header SearchBar">
+            <form onSubmit={this.onHandleSubmit}>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div className="form-group mt-20">
                   <input
-                    name="keyword"
                     type="text"
                     className="form-control mw-80"
                     placeholder="Nhập từ khóa..."
@@ -43,8 +41,7 @@ class SearchBar extends Component {
                   </span>
                 </div>
               </div>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </div>
