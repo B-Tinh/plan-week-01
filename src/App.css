@@ -21,7 +21,7 @@
   color: #09d3ac;
 }
 .SearchBar {
-  background: black;
+  background: #eff5f5;
   height: 75px;
 }
 .mt-20 {
@@ -29,12 +29,10 @@
 }
 
 .VideoDetail {
-  border: 1px solid red;
-  height: 500px;
+  height: auto;
 }
 
 .ShowVideo {
-  border: 1px solid blue;
   height: 300px;
 }
 iframe{
@@ -43,28 +41,26 @@ iframe{
 }
 
 .ShowVideoTitle {
-  border: 1px solid yellow;
   height: 100px;
   margin-top: 20px;
 }
 
 .VideoList {
-  border: 1px solid green;
   height: auto;
   cursor: pointer;
 }
 
 .VideoItem {
-  border: 1px solid black;
   height: 100px;
   margin-top: 10px;
   display: flex !important;
   align-items: center !important;
   cursor: pointer;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 20px;
 }
 
 .ImgVideo {
-  border: 1px solid turquoise;
   height: 80px;
   margin-top: 10px;
   margin-left: 10px;
@@ -73,7 +69,6 @@ iframe{
 }
 
 .VideoName {
-  border: 1px solid steelblue;
   height: 80px;
   margin-top: 10px;
   margin-right: 10px;

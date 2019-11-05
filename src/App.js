@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 })
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       videos: [],
@@ -26,7 +26,7 @@ class App extends Component {
         maxResults: 5,
         key: 'AIzaSyB9e421HS5kwj7tu65mXPeV5ygb4cIKr5k'
       }
-      
+
     })
     this.setState({
       videos: res.data.items
@@ -37,20 +37,18 @@ class App extends Component {
     this.setState({
       selectedVideo: video
     });
-    
   }
 
-
   render() {
-    return(     
+    return (
       <div>
         <div className="container">
-          <SearchBar onHandleSearch={this.onSearchForm}/>
+          <SearchBar onHandleSearch={this.onSearchForm} />
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="row">
-                <VideoDetail video={this.state.selectedVideo}/>
-                <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos}/>
+                <VideoDetail video={this.state.selectedVideo} />
+                <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos} />
               </div>
             </div>
           </div>
