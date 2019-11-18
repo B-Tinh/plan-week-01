@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import SongList from "./SongList";
+import { connect } from 'react-redux';
 
 class Right extends Component {
   render() {
-    const {songList, isDisplayForm, handleSongSelect} = this.props;
-    let elmSings = songList.map(song => {
+    const {sings , isDisplayForm, handleSongSelect} = this.props;
+    let elmSings = sings.map(song => {
       return <SongList  key={song.id} song={song} handleSongSelect={handleSongSelect}/>
     })
     return (
@@ -18,5 +19,10 @@ class Right extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    sings: state.sings
+  }
+};
 
-export default Right;
+export default connect(mapStateToProps,null)(Right);
