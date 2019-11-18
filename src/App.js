@@ -1,58 +1,73 @@
-import React, { Component } from 'react';
-import './App.css';
-import SearchBar from './components/SearchBar';
-import VideoDetail from './components/VideoDetail';
-import VideoList from './components/VideoList';
-import axios from 'axios';
-
-const axiosInstance = axios.create({
-  baseURL: 'https://www.googleapis.com/youtube/v3/',
-})
+import React, { Component } from "react";
+import "./App.css";
+import Right from "./components/Right";
+import Left from "./components/Left";
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      videos: [],
-      selectedVideo: null
+      Sings : [
+        {
+          id : 1,
+          song : "No scrubs",
+          duration: "3:15"
+        },
+        {
+          id : 2,
+          song : "Macarena",
+          duration: "3:15"
+        },
+        {
+          id : 3,
+          song : "I Want it That Way",
+          duration: "3:15"
+        },
+        {
+          id : 4,
+          song : "Lose You To Love Me",
+          duration: "3:15"
+        },
+        {
+          id : 5,
+          song : "Sue Me",
+          duration: "3:15"
+        },
+        {
+          id : 6,
+          song : "Die A Little Bit",
+          duration: "3:15"
+        },
+        {
+          id : 7,
+          song : "Sabotage",
+          duration: "3:15"
+        },
+        {
+          id : 8,
+          song : "All Star",
+          duration: "3:15"
+        }
+      ],
+      isDisplayForm : false,
+      selectedSong : null
     }
   }
-
-  onSearchForm = async (textSearch) => {
-    const res = await axiosInstance.get('/search', {
-      params: {
-        q: textSearch,
-        part: 'snippet',
-        maxResults: 5,
-        key: 'AIzaSyB9e421HS5kwj7tu65mXPeV5ygb4cIKr5k'
-      }
-      
-    })
+  handleSongSelect = (song) => {
     this.setState({
-      videos: res.data.items
+      selectedSong: song,
+      isDisplayForm: true
     })
   }
-
-  handleVideoSelect = (video) => {
-    this.setState({
-      selectedVideo: video
-    });
-    
-  }
-
-
   render() {
-    console.log("selected", this.state.selectedVideo)  
-    return(     
+    const {Sings,isDisplayForm, selectedSong} = this.state;
+    return (
       <div>
         <div className="container">
-          <SearchBar onHandleSearch={this.onSearchForm}/>
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div className="row">
-                <VideoDetail video={this.state.selectedVideo}/>
-                <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos}/>
-              </div>
+              <Right songList = {Sings} isDisplayForm={isDisplayForm} handleSongSelect={this.handleSongSelect}/>
+              {isDisplayForm ? <Left mySong={selectedSong} Sings={Sings}/> : ''}
             </div>
           </div>
         </div>
