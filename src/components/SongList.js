@@ -1,6 +1,13 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+import * as actions from './../actions'
 
 class SongList extends Component {
+
+  handleSongSelect = () => {
+    this.props.onToggleForm()
+    this.props.onSelectSong(this.props.song)
+  }
   render() {
     const { song, handleSongSelect } = this.props;
     return (
@@ -11,7 +18,7 @@ class SongList extends Component {
             <span>{song.song}</span>
             </div>           
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <button type="button" className="btn btn-primary" onClick={() => handleSongSelect(song)}>
+            <button type="button" className="btn btn-primary" onClick={this.handleSongSelect}>
             Select
           </button>
             </div>           
@@ -21,5 +28,21 @@ class SongList extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    sings: state.sings,
+    isDisplayForm: state.isDisplayForm
+  }
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return{
+    onToggleForm : () => {
+      dispatch(actions.toggleForm());
+    },
+    onSelectSong : (song) => {
+      dispatch(actions.selectSong(song));
+    }
+  }
+}
 
-export default SongList;
+export default connect(mapStateToProps,mapDispatchToProps)(SongList);

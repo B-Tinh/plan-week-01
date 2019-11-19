@@ -10,4 +10,11 @@ export const toggleForm = () => {
     return {
         type: types.TOGGLE_FORM
     }
+};
+
+export const selectSong = (song) => {
+    return {
+        type: types.SELECT_SONG,
+        song
+    }
 }
