@@ -5,3 +5,9 @@ export const listAll = () => {
         type: types.LIST_ALL
     }
 };
+
+export const toggleForm = () => {
+    return {
+        type: types.TOGGLE_FORM
+    }
+}

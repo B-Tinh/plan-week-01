@@ -2,30 +2,32 @@ import React, { Component } from "react";
 import "./App.css";
 import Right from "./components/Right";
 import Left from "./components/Left";
+import {connect} from 'react-redux';
+import * as actions from './actions'
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isDisplayForm : false,
       selectedSong : null
     }
   }
   handleSongSelect = (song) => {
     this.setState({
       selectedSong: song,
-      isDisplayForm: true
     })
+    this.props.onToggleForm();
   }
   render() {
-    const {isDisplayForm, selectedSong} = this.state;
+    const {selectedSong} = this.state;
+    const {isDisplayForm} = this.props;
     return (
       <div>
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <Right isDisplayForm={isDisplayForm} handleSongSelect={this.handleSongSelect}/>
-              {isDisplayForm ? <Left mySong={selectedSong} /> : ''}
+              <Right handleSongSelect={this.handleSongSelect}/>
+              {(isDisplayForm) ? <Left mySong={selectedSong} /> : ''}
             </div>
           </div>
         </div>
@@ -33,5 +35,19 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    sings: state.sings,
+    isDisplayForm: state.isDisplayForm
+  }
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return{
+    onToggleForm : () => {
+      dispatch(actions.toggleForm());
+    }
+  }
+}
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);
+

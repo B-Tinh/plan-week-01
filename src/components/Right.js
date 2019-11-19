@@ -21,7 +21,8 @@ class Right extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    sings: state.sings
+    sings: state.sings,
+    isDisplayForm: state.isDisplayForm
   }
 };
 
