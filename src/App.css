@@ -33,3 +33,8 @@
   float: right;
   margin-top: -20px;
 }
+.SongList .btn-success {
+  float: right;
+  margin-top: -20px;
+  margin-right: 10px;
+}

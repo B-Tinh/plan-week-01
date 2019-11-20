@@ -12,9 +12,23 @@ export const toggleForm = () => {
     }
 };
 
+export const closeForm = () => {
+    return {
+        type: types.CLOSE_FORM
+    }
+};
+
 export const selectSong = (song) => {
     return {
         type: types.SELECT_SONG,
-        song
+        song,
+    }
+};
+
+export const editText = (id, text) => {
+    return {
+        type: types.EDIT_TEXT,
+        id,
+        text
     }
 }
