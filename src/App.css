@@ -21,20 +21,10 @@
   color: #09d3ac;
 }
 
-.Right {
-  height: 50px;
-}
-.SongList {
-  margin-top: 50px;
-  border-bottom: 1px solid red;
+.mb-10 {
+  margin-bottom: 10px;
 }
 
-.SongList .btn-primary {
-  float: right;
-  margin-top: -20px;
-}
-.SongList .btn-success {
-  float: right;
-  margin-top: -20px;
+.mr-10 {
   margin-right: 10px;
 }
