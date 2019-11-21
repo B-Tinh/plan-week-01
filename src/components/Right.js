@@ -6,7 +6,7 @@ class Right extends Component {
   render() {
     const {sings , isDisplayForm, handleSongSelect} = this.props;
     let elmSings = sings.map(song => {
-      return <SongList  key={song.id} song={song} handleSongSelect={handleSongSelect}/> 
+      return <SongList key={song.id} song={song} handleSongSelect={handleSongSelect}/> 
     })
     return (
       <div>

@@ -4,11 +4,14 @@ import * as actions from "./../actions";
 
 class SongList extends Component {
 
-  onHandleChange = event => {
-    this.props.onEditText(event.target.value);
-    console.log('event.target.value',event.target.value)
-  };
-
+  handleSongSelect = () => {
+    this.props.onToggleForm()
+    this.props.onSelectSong(this.props.song)
+}
+  onHandleChange = id => event => {
+    console.log("event.target.value", event.target.value)
+    this.props.onEditText(id, event.target.value)
+  }
 
   handleEditForm = (id, text) => {
     this.props.onEditText(id, text);
@@ -16,19 +19,21 @@ class SongList extends Component {
 
   render() {
     const { song } = this.props;
-    console.log("id", song);
     return (
       <div>
         <div className="SongList">
           <div className="row">
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+              <div>
               <input
+              className="form-control"
                 type="text"
-                name="textNotes"
                 value={song.song}
                 style={{ width: "100%" }}
-                onChange={this.onHandleChange}
+                onChange={this.onHandleChange(song.id)}
               />
+              </div>
+              
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               <button
@@ -41,7 +46,7 @@ class SongList extends Component {
               <button
                 type="button"
                 className="btn btn-success"
-                onClick={this.handleEditForm(song.id, song.song)}
+                onClick={() => this.handleEditForm(song.id, song.song)}
               >
                 Edit
               </button>
@@ -68,6 +73,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onEditText: (id, text) => {
       dispatch(actions.editText(id, text));
+    },
+    onChangeText: (value) => {
+      dispatch(actions.changeInText(value));
     }
   };
 };

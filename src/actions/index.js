@@ -31,4 +31,11 @@ export const editText = (id, text) => {
         id,
         text
     }
+};
+
+export const changeInText = (value) => {
+    return {
+        type: types.CHANGE_IN_TEXT,
+        value
+    }
 }
