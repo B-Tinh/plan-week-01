@@ -17,7 +17,7 @@ const routes = [
     {
         path: '/employee/add',
         exact: false,
-        main: () => <EmployeeActionPage />
+        main: ({history}) => <EmployeeActionPage history={history}/>
     },
     {
         path: '/employee/:id/edit',

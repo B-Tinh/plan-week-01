@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class InfoEmployees extends Component {
   render() {
     const { employee, index } = this.props;
+    console.log(employee)
     return (
       <tr>
         <td>{index + 1}</td>
@@ -23,7 +24,7 @@ class InfoEmployees extends Component {
             <h5 className="card-text">Title: {employee.title}</h5>
           </div>
         </td>
-        <td>{employee.account.username}</td>
+        <td>{employee.account.userName}</td>
         <td>{employee.account.email}</td>
         <td>
           <button type="button" class="btn btn-success mr-10">
