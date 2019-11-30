@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
 class InfoEmployees extends Component {
+
+  onDelete = (id) => {
+    this.props.onDelete(id);
+  }
   render() {
     const { employee, index } = this.props;
-    console.log(employee)
     return (
       <tr>
         <td>{index + 1}</td>
@@ -30,7 +33,7 @@ class InfoEmployees extends Component {
           <button type="button" class="btn btn-success mr-10">
             UPDATE
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" onClick={() => this.onDelete(employee.id)}>
             DELETE
           </button>
         </td>

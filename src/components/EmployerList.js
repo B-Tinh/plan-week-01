@@ -18,6 +18,17 @@ componentDidMount(){
     });
   });
 }
+
+onDelete = (id) => {
+  callApi(`employees/${id}`, 'DELETE', null).then(res => {
+    if(res.status === 200){
+      this.setState({
+        employees: this.state.employees.filter((employee) => employee.id !== id)
+      })
+    }
+  })
+  
+}
   render() {
     const infoEmployees = this.state.employees.map((employee, index) => {
       return (
@@ -25,9 +36,11 @@ componentDidMount(){
           key={index}
           employee={employee}
           index={index}
+          onDelete={this.onDelete}
         />
       );
     })
+    console.log(this.state.employees)
     return (
       
       <div>
