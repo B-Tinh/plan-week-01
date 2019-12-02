@@ -9,40 +9,76 @@ class EmployeeActionPage extends Component {
       txtFirstName: '',
       txtLastName: '',
       txtTitle: '',
+      txtImage: null,
       txtUserName: '',
       txtEmail: ''
     }
   }
 
+  componentDidMount(){
+    const { match } = this.props;
+    if(match){
+      const id = match.params.id;
+      callApi(`employees/${id}`, 'GET', null).then(res => {
+        this.setState({
+          id: res.data.id,
+          txtFirstName: res.data.first_name,
+          txtLastName: res.data.last_name,
+          txtTitle: res.data.title,
+          txtUserName: res.data.account.userName,
+          txtEmail: res.data.account.email
+        })
+      })
+    }
+  }
   onChange = (e) => {
+    console.log(e.target.files[0].name)
+    
     let target = e.target;
     let name =  target.name;
     let value = target.value;
     this.setState({
-      [name]: value
+      [name]: value,
+      txtImage: e.target.files[0].name
     });
    }
 
    onSave = (e) => {
      e.preventDefault();
-     const { txtFirstName, txtLastName, txtTitle, txtUserName, txtEmail } = this.state;
+     console.log(this.state);
+     const { id, txtFirstName, txtLastName, txtTitle, txtImage, txtUserName, txtEmail } = this.state;
      const { history } = this.props;
-     callApi('employees', 'POST', {
-      first_name: txtFirstName,
-      last_name: txtLastName,
-      title: txtTitle,
-      account: {
-        email: txtEmail,
-        image: '',
-        userName: txtUserName
-      }
-     }).then(res => {
-      history.push('/employee-list');
-     })
-
+     if(id){
+      callApi(`employees/${id}`, 'PUT', {
+        first_name: txtFirstName,
+        last_name: txtLastName,
+        title: txtTitle,
+        account: {
+          email: txtEmail,
+          image: txtImage,
+          userName: txtUserName
+        }
+       }).then(res => {
+        history.push('/employee-list');
+       })
+     }else{
+      callApi('employees', 'POST', {
+        id: id,
+        first_name: txtFirstName,
+        last_name: txtLastName,
+        title: txtTitle,
+        account: {
+          email: txtEmail,
+          image: `https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/${txtImage}`,
+          userName: txtUserName
+        }
+       }).then(res => {
+        history.push('/employee-list');
+       })
+     }
    }
   render() {
-    const { txtFirstName, txtLastName, txtTitle, txtUserName, txtEmail } = this.state;
+    const { id, txtFirstName, txtLastName, txtTitle, txtUserName, txtEmail } = this.state;
     return (
       <div>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -78,6 +114,14 @@ class EmployeeActionPage extends Component {
               />
             </div>
             <div className="form-group">
+              <label>Image:</label>
+              <input type="file"
+                   className="image"
+                   name="txtImage"
+                   accept="image/png, image/jpeg, image/jpg"  
+                   onChange={this.onChange} required/>
+            </div>
+            <div className="form-group">
               <label>User Name:</label>
               <input
                 type="text"
@@ -98,7 +142,7 @@ class EmployeeActionPage extends Component {
               />
             </div>
             <button type="submit" className="btn btn-primary">
-              Save
+              {id ? 'Update' : 'Save'}
             </button>
           </form>
         </div>

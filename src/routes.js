@@ -22,7 +22,7 @@ const routes = [
     {
         path: '/employee/:id/edit',
         exact: false,
-        main: ({match}) => <EmployeeActionPage match={match}/>
+        main: ({match, history}) => <EmployeeActionPage match={match} history={history}/>
     }
 ];
 export default routes;

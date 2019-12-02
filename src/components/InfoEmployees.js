@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 class InfoEmployees extends Component {
 
@@ -30,10 +31,12 @@ class InfoEmployees extends Component {
         <td>{employee.account.userName}</td>
         <td>{employee.account.email}</td>
         <td>
-          <button type="button" class="btn btn-success mr-10">
+          <Link  
+          to={`/employee/${employee.id}/edit`}
+          className="btn btn-success mr-10">
             UPDATE
-          </button>
-          <button type="button" class="btn btn-danger" onClick={() => this.onDelete(employee.id)}>
+          </Link>
+          <button type="button" className="btn btn-danger" onClick={() => this.onDelete(employee.id)}>
             DELETE
           </button>
         </td>
