@@ -1,25 +1,27 @@
 import React, { Component } from "react";
-import callApi from './../../utils/apiCaller';
+import callApi from "./../../utils/apiCaller";
+import { connect } from "react-redux";
+import { actAddEmployeesRequest } from "../../actions";
 
 class EmployeeActionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      txtFirstName: '',
-      txtLastName: '',
-      txtTitle: '',
+      id: "",
+      txtFirstName: "",
+      txtLastName: "",
+      txtTitle: "",
       txtImage: null,
-      txtUserName: '',
-      txtEmail: ''
-    }
+      txtUserName: "",
+      txtEmail: ""
+    };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { match } = this.props;
-    if(match){
+    if (match) {
       const id = match.params.id;
-      callApi(`employees/${id}`, 'GET', null).then(res => {
+      callApi(`employees/${id}`, "GET", null).then(res => {
         this.setState({
           id: res.data.id,
           txtFirstName: res.data.first_name,
@@ -27,29 +29,48 @@ class EmployeeActionPage extends Component {
           txtTitle: res.data.title,
           txtUserName: res.data.account.userName,
           txtEmail: res.data.account.email
-        })
-      })
+        });
+      });
     }
   }
-  onChange = (e) => {
-    console.log(e.target.files[0].name)
-    
+  onChange = e => {
+    console.log(e.target.files[0].name);
+
     let target = e.target;
-    let name =  target.name;
+    let name = target.name;
     let value = target.value;
     this.setState({
       [name]: value,
       txtImage: e.target.files[0].name
     });
-   }
+  };
 
-   onSave = (e) => {
-     e.preventDefault();
-     console.log(this.state);
-     const { id, txtFirstName, txtLastName, txtTitle, txtImage, txtUserName, txtEmail } = this.state;
-     const { history } = this.props;
-     if(id){
-      callApi(`employees/${id}`, 'PUT', {
+  onSave = e => {
+    e.preventDefault();
+    console.log(this.state);
+    const {
+      id,
+      txtFirstName,
+      txtLastName,
+      txtTitle,
+      txtImage,
+      txtUserName,
+      txtEmail
+    } = this.state;
+    const { history } = this.props;
+    const employee = {
+      id: id,
+      first_name: txtFirstName,
+      last_name: txtLastName,
+      title: txtTitle,
+      account: {
+        email: txtEmail,
+        image: `https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/${txtImage}`,
+        userName: txtUserName
+      }
+    };
+    if (id) {
+      callApi(`employees/${id}`, "PUT", {
         first_name: txtFirstName,
         last_name: txtLastName,
         title: txtTitle,
@@ -58,31 +79,28 @@ class EmployeeActionPage extends Component {
           image: txtImage,
           userName: txtUserName
         }
-       }).then(res => {
-        history.push('/employee-list');
-       })
-     }else{
-      callApi('employees', 'POST', {
-        id: id,
-        first_name: txtFirstName,
-        last_name: txtLastName,
-        title: txtTitle,
-        account: {
-          email: txtEmail,
-          image: `https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/${txtImage}`,
-          userName: txtUserName
-        }
-       }).then(res => {
-        history.push('/employee-list');
-       })
-     }
-   }
+      }).then(res => {
+        history.push("/employee-list");
+      });
+    } else {
+      this.props.onAddEmployee(employee);
+      history.push("/employee-list");
+    }
+  };
   render() {
-    const { id, txtFirstName, txtLastName, txtTitle, txtUserName, txtEmail } = this.state;
+    const {
+      id,
+      txtFirstName,
+      txtLastName,
+      txtTitle,
+      txtUserName,
+      txtEmail
+    } = this.state;
     return (
       <div>
+  <h1>{id ? "UPDATE EMPLOYEE" : "ADD EMPLOYEE"}</h1>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          <form onSubmit = {this.onSave}>
+          <form onSubmit={this.onSave}>
             <div className="form-group">
               <label>First Name:</label>
               <input
@@ -115,11 +133,14 @@ class EmployeeActionPage extends Component {
             </div>
             <div className="form-group">
               <label>Image:</label>
-              <input type="file"
-                   className="image"
-                   name="txtImage"
-                   accept="image/png, image/jpeg, image/jpg"  
-                   onChange={this.onChange} required/>
+              <input
+                type="file"
+                className="image"
+                name="txtImage"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={this.onChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label>User Name:</label>
@@ -142,7 +163,7 @@ class EmployeeActionPage extends Component {
               />
             </div>
             <button type="submit" className="btn btn-primary">
-              {id ? 'Update' : 'Save'}
+              {(id) ? "Update" : "Save"}
             </button>
           </form>
         </div>
@@ -151,4 +172,12 @@ class EmployeeActionPage extends Component {
   }
 }
 
-export default EmployeeActionPage;
+const mapDispatchToProps = (dispatch, action) => {
+  return {
+    onAddEmployee: employee => {
+      dispatch(actAddEmployeesRequest(employee));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(EmployeeActionPage);

@@ -1,36 +1,30 @@
 import React, { Component } from "react";
 import InfoEmployees from "./InfoEmployees";
 import { connect } from 'react-redux';
-import callApi from './../utils/apiCaller'
+// import callApi from './../utils/apiCaller'
+import { actFetchEmployeesRequest, actDeleteEmployeesRequest } from "../actions";
 
 class EmployerList extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      employees : []
-    }
-  }
 
 componentDidMount(){
-  callApi('employees', 'GET', null).then(res => {
-    this.setState({
-      employees : res.data
-    });
-  });
+  this.props.fetchAllEmployees();
 }
 
 onDelete = (id) => {
-  callApi(`employees/${id}`, 'DELETE', null).then(res => {
-    if(res.status === 200){
-      this.setState({
-        employees: this.state.employees.filter((employee) => employee.id !== id)
-      })
-    }
-  })
+  // callApi(`employees/${id}`, 'DELETE', null).then(res => {
+  //   if(res.status === 200){
+  //     this.setState({
+  //       employees: this.state.employees.filter((employee) => employee.id !== id)
+  //     })
+  //   }
+  // })
+  this.props.deleteAllEmployees(id);
   
 }
   render() {
-    const infoEmployees = this.state.employees.map((employee, index) => {
+    const { employees } = this.props;
+    console.log(employees)
+    const infoEmployees = employees.map((employee, index) => {
       return (
         <InfoEmployees
           key={index}
@@ -40,7 +34,6 @@ onDelete = (id) => {
         />
       );
     })
-    console.log(this.state.employees)
     return (
       
       <div>
@@ -76,4 +69,15 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(EmployerList);
+const mapDispatchToProps = (dispatch, props) => {
+  return{
+    fetchAllEmployees : () => {
+      dispatch(actFetchEmployeesRequest());
+    },
+    deleteAllEmployees : (id) => {
+      dispatch(actDeleteEmployeesRequest(id));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerList);
