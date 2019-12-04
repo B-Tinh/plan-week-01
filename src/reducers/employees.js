@@ -14,8 +14,7 @@ const employees = (state = initialState, action) => {
       state.push(action.employee);
       return [...state];
     case Types.UPDATE_EMPLOYEE:
-      const updateState = state.filter(employee => employee.id !== action.id);
-      state[updateState] = action.employee
+      state.filter(employee => employee.id !== action.id);
       return [...state];
     default:
       return [...state];

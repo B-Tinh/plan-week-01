@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { actFetchEmployeesRequest } from "../actions";
 class InfoEmployees extends Component {
 
+  componentDidMount(){
+      this.props.fetchAllEmployees();
+  }
   onDelete = (id) => {
     this.props.onDelete(id);
   }
@@ -47,4 +51,13 @@ class InfoEmployees extends Component {
   }
 }
 
-export default InfoEmployees;
+const mapDispatchToProps = (dispatch, props) => {
+  return{
+    fetchAllEmployees : () => {
+      dispatch(actFetchEmployeesRequest());
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(InfoEmployees);
+

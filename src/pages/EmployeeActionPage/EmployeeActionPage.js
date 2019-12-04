@@ -50,7 +50,6 @@ class EmployeeActionPage extends Component {
   }
   onChange = e => {
     // console.log(e.target.files[0].name);
-
     let target = e.target;
     let name = target.name;
     let value = target.value;
@@ -99,8 +98,7 @@ class EmployeeActionPage extends Component {
       // });
       this.props.onUpdateEmployee(employee);
     } else {
-      this.props.onAddEmployee(employee);
-      
+      this.props.onAddEmployee(employee)
     }
     history.push("/employee-list");
   }
