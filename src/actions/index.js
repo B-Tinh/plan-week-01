@@ -44,3 +44,33 @@ export const actAddEmployees = (employee) => {
         employee
     }
 }
+
+export const actEditEmployeesRequest = (id) => dispatch => {
+    return (
+        callApi(`employees/${id}`, 'GET', null).then(res => {
+            dispatch(actEditEmployees(res.data));
+        })
+    );
+}
+
+export const actEditEmployees = (employee) => {
+    return {
+        type: Types.EDIT_EMPLOYEE,
+        employee
+    }
+}
+
+export const actUpdateEmployeesRequest = (employee) => dispatch => {
+    return (
+        callApi(`employees/${employee.id}`, 'PUT', employee).then(res => {
+            dispatch(actUpdateEmployees(res.data));
+        })
+    );
+}
+
+export const actUpdateEmployees = (employee) => {
+    return {
+        type: Types.UPDATE_EMPLOYEE,
+        employee
+    }
+}

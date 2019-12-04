@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import callApi from "./../../utils/apiCaller";
 import { connect } from "react-redux";
-import { actAddEmployeesRequest } from "../../actions";
+import { actAddEmployeesRequest, actEditEmployeesRequest, actUpdateEmployeesRequest } from "../../actions";
 
 class EmployeeActionPage extends Component {
   constructor(props) {
@@ -21,27 +21,42 @@ class EmployeeActionPage extends Component {
     const { match } = this.props;
     if (match) {
       const id = match.params.id;
-      callApi(`employees/${id}`, "GET", null).then(res => {
-        this.setState({
-          id: res.data.id,
-          txtFirstName: res.data.first_name,
-          txtLastName: res.data.last_name,
-          txtTitle: res.data.title,
-          txtUserName: res.data.account.userName,
-          txtEmail: res.data.account.email
-        });
+      // callApi(`employees/${id}`, "GET", null).then(res => {
+      //   this.setState({
+      //     id: res.data.id,
+      //     txtFirstName: res.data.first_name,
+      //     txtLastName: res.data.last_name,
+      //     txtTitle: res.data.title,
+      //     txtUserName: res.data.account.userName,
+      //     txtEmail: res.data.account.email
+      //   });
+      // });
+      this.props.onEditEmployee(id);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.editEmployee) {
+      let { editEmployee } = nextProps;
+      this.setState({
+        id: editEmployee.id,
+        txtFirstName: editEmployee.first_name,
+        txtLastName: editEmployee.last_name,
+        txtTitle: editEmployee.title,
+        txtUserName: editEmployee.account.userName,
+        txtEmail: editEmployee.account.email
       });
     }
   }
   onChange = e => {
-    console.log(e.target.files[0].name);
+    // console.log(e.target.files[0].name);
 
     let target = e.target;
     let name = target.name;
     let value = target.value;
     this.setState({
       [name]: value,
-      txtImage: e.target.files[0].name
+      // txtImage: e.target.files[0].name
     });
   };
 
@@ -70,23 +85,26 @@ class EmployeeActionPage extends Component {
       }
     };
     if (id) {
-      callApi(`employees/${id}`, "PUT", {
-        first_name: txtFirstName,
-        last_name: txtLastName,
-        title: txtTitle,
-        account: {
-          email: txtEmail,
-          image: txtImage,
-          userName: txtUserName
-        }
-      }).then(res => {
-        history.push("/employee-list");
-      });
+      // callApi(`employees/${id}`, "PUT", {
+      //   first_name: txtFirstName,
+      //   last_name: txtLastName,
+      //   title: txtTitle,
+      //   account: {
+      //     email: txtEmail,
+      //     image: txtImage,
+      //     userName: txtUserName
+      //   }
+      // }).then(res => {
+      //   history.push("/employee-list");
+      // });
+      this.props.onUpdateEmployee(employee);
     } else {
       this.props.onAddEmployee(employee);
-      history.push("/employee-list");
+      
     }
-  };
+    history.push("/employee-list");
+  }
+
   render() {
     const {
       id,
@@ -98,7 +116,7 @@ class EmployeeActionPage extends Component {
     } = this.state;
     return (
       <div>
-  <h1>{id ? "UPDATE EMPLOYEE" : "ADD EMPLOYEE"}</h1>
+        <h1>{id ? "UPDATE EMPLOYEE" : "ADD EMPLOYEE"}</h1>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <form onSubmit={this.onSave}>
             <div className="form-group">
@@ -163,7 +181,7 @@ class EmployeeActionPage extends Component {
               />
             </div>
             <button type="submit" className="btn btn-primary">
-              {(id) ? "Update" : "Save"}
+              {id ? "Update" : "Save"}
             </button>
           </form>
         </div>
@@ -172,12 +190,23 @@ class EmployeeActionPage extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    editEmployee: state.editEmployee
+  };
+};
 const mapDispatchToProps = (dispatch, action) => {
   return {
     onAddEmployee: employee => {
       dispatch(actAddEmployeesRequest(employee));
+    },
+    onEditEmployee: id => {
+      dispatch(actEditEmployeesRequest(id));
+    },
+    onUpdateEmployee: employee => {
+      dispatch(actUpdateEmployeesRequest(employee));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(EmployeeActionPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeActionPage);

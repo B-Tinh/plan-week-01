@@ -6,6 +6,7 @@ class InfoEmployees extends Component {
   onDelete = (id) => {
     this.props.onDelete(id);
   }
+
   render() {
     const { employee, index } = this.props;
     return (
@@ -33,7 +34,8 @@ class InfoEmployees extends Component {
         <td>
           <Link  
           to={`/employee/${employee.id}/edit`}
-          className="btn btn-success mr-10">
+          className="btn btn-success mr-10"
+          >
             UPDATE
           </Link>
           <button type="button" className="btn btn-danger" onClick={() => this.onDelete(employee.id)}>
