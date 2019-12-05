@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import callApi from "./../../utils/apiCaller";
 import { connect } from "react-redux";
 import { actAddEmployeesRequest, actEditEmployeesRequest, actUpdateEmployeesRequest } from "../../actions";
 
@@ -21,16 +20,6 @@ class EmployeeActionPage extends Component {
     const { match } = this.props;
     if (match) {
       const id = match.params.id;
-      // callApi(`employees/${id}`, "GET", null).then(res => {
-      //   this.setState({
-      //     id: res.data.id,
-      //     txtFirstName: res.data.first_name,
-      //     txtLastName: res.data.last_name,
-      //     txtTitle: res.data.title,
-      //     txtUserName: res.data.account.userName,
-      //     txtEmail: res.data.account.email
-      //   });
-      // });
       this.props.onEditEmployee(id);
     }
   }
@@ -44,12 +33,12 @@ class EmployeeActionPage extends Component {
         txtLastName: editEmployee.last_name,
         txtTitle: editEmployee.title,
         txtUserName: editEmployee.account.userName,
+        txtImage: editEmployee.account.image,
         txtEmail: editEmployee.account.email
       });
     }
   }
   onChange = e => {
-    // console.log(e.target.files[0].name);
     let target = e.target;
     let name = target.name;
     let value = target.value;
@@ -61,7 +50,6 @@ class EmployeeActionPage extends Component {
 
   onSave = e => {
     e.preventDefault();
-    console.log(this.state);
     const {
       id,
       txtFirstName,
@@ -79,23 +67,11 @@ class EmployeeActionPage extends Component {
       title: txtTitle,
       account: {
         email: txtEmail,
-        image: `https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/${txtImage}`,
+        image: txtImage,
         userName: txtUserName
       }
     };
     if (id) {
-      // callApi(`employees/${id}`, "PUT", {
-      //   first_name: txtFirstName,
-      //   last_name: txtLastName,
-      //   title: txtTitle,
-      //   account: {
-      //     email: txtEmail,
-      //     image: txtImage,
-      //     userName: txtUserName
-      //   }
-      // }).then(res => {
-      //   history.push("/employee-list");
-      // });
       this.props.onUpdateEmployee(employee);
     } else {
       this.props.onAddEmployee(employee)
@@ -110,7 +86,8 @@ class EmployeeActionPage extends Component {
       txtLastName,
       txtTitle,
       txtUserName,
-      txtEmail
+      txtEmail,
+      txtImage
     } = this.state;
     return (
       <div>
@@ -150,9 +127,10 @@ class EmployeeActionPage extends Component {
             <div className="form-group">
               <label>Image:</label>
               <input
-                type="file"
-                className="image"
+                type="text"
+                className="form-control"
                 name="txtImage"
+                value={txtImage}
                 accept="image/png, image/jpeg, image/jpg"
                 onChange={this.onChange}
                 required

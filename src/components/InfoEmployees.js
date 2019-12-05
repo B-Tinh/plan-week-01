@@ -17,8 +17,9 @@ class InfoEmployees extends Component {
       <tr>
         <td>{index + 1}</td>
         <td>
-          <div className="card" style={{ width: "auto" }}>
+          <div className="card" style={{ width: 135, height: 135 }}>
             <img
+            style={{ width: "100%", height: "100%" }}
               className="card-img-top"
               src={employee.account.image}
               alt="Card image"

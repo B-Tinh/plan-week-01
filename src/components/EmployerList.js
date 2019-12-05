@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InfoEmployees from "./InfoEmployees";
 import { connect } from 'react-redux';
-// import callApi from './../utils/apiCaller'
 import { actFetchEmployeesRequest, actDeleteEmployeesRequest } from "../actions";
 
 class EmployerList extends Component {
@@ -11,19 +10,11 @@ componentDidMount(){
 }
 
 onDelete = (id) => {
-  // callApi(`employees/${id}`, 'DELETE', null).then(res => {
-  //   if(res.status === 200){
-  //     this.setState({
-  //       employees: this.state.employees.filter((employee) => employee.id !== id)
-  //     })
-  //   }
-  // })
   this.props.deleteAllEmployees(id);
   
 }
   render() {
     const { employees } = this.props;
-    console.log(employees)
     const infoEmployees = employees.map((employee, index) => {
       return (
         <InfoEmployees
