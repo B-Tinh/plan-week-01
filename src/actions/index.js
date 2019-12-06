@@ -1,76 +1,79 @@
-import * as Types from './../constants/ActionTypes';
-import callApi from './../utils/apiCaller';
+import * as Types from "./../constants/ActionTypes";
+import callApi from "./../utils/apiCaller";
 
+export const fetchEmployeeRequest = () => dispatch => {
+  return callApi("employees", "", null).then(res => {
+    dispatch({
+      type: Types.FETCH_EMPLOYEES,
+      employees: res.data
+    });
+  });
+};
 
-export const actFetchEmployeesRequest = () => dispatch => {
-    return (
-        callApi('employees', 'GET', null).then(res => {
-            dispatch(actFetchEmployees(res.data));
-        })
-    );
-}
+// export const actFetchEmployees = (employees) => {
+//     return {
+//         type: Types.FETCH_EMPLOYEES,
+//         employees
+//     }
+// }
+export const deleteEmployeeRequest = id => dispatch => {
+  return callApi(`employees/${id}`, "DELETE", null).then(res => {
+    dispatch({
+      type: Types.DELETE_EMPLOYEE,
+      id
+    });
+    dispatch(fetchEmployeeRequest());
+  });
+};
 
-export const actFetchEmployees = (employees) => {
-    return {
-        type: Types.FETCH_EMPLOYEES,
-        employees
-    }
-}
-export const actDeleteEmployeesRequest = (id) => dispatch => {
-    return (
-        callApi(`employees/${id}`, 'DELETE', null).then(res => {
-            dispatch(actDeleteEmployees(id));
-        })
-    );
-    }
+// export const actDeleteEmployees = (id) => {
+//     return {
+//         type: Types.DELETE_EMPLOYEE,
+//         id
+//     }
+// }
 
-export const actDeleteEmployees = (id) => {
-    return {
-        type: Types.DELETE_EMPLOYEE,
-        id
-    }
-}
+export const addEmployeeRequest = employee => dispatch => {
+  return callApi("employees", "POST", employee).then(res => {
+    dispatch({
+      type: Types.ADD_EMPLOYEE,
+      employee: res.data
+    });
+  });
+};
+// export const actAddEmployees = (employee) => {
+//     return {
+//         type: Types.ADD_EMPLOYEE,
+//         employee
+//     }
+// }
 
-export const actAddEmployeesRequest = (employee) => dispatch => {
-    return (
-        callApi('employees', 'POST', employee).then(res => {
-            dispatch(actAddEmployees(res.data));
-        })
-    );
-}
-export const actAddEmployees = (employee) => {
-    return {
-        type: Types.ADD_EMPLOYEE,
-        employee
-    }
-}
+export const editEmployeeRequest = id => dispatch => {
+  return callApi(`employees/${id}`, "", null).then(res => {
+    dispatch({
+      type: Types.EDIT_EMPLOYEE,
+      employee: res.data
+    });
+  });
+};
 
-export const actEditEmployeesRequest = (id) => dispatch => {
-    return (
-        callApi(`employees/${id}`, 'GET', null).then(res => {
-            dispatch(actEditEmployees(res.data));
-        })
-    );
-}
+// export const EditEmployees = (employee) => {
+//     return {
+//         type: Types.EDIT_EMPLOYEE,
+//         employee
+//     }
+// }
 
-export const actEditEmployees = (employee) => {
-    return {
-        type: Types.EDIT_EMPLOYEE,
-        employee
-    }
-}
+export const updateEmployeeRequest = employee => dispatch => {
+  return callApi(`employees/${employee.id}`, "PUT", employee).then(res => {
+    dispatch({ type: Types.UPDATE_EMPLOYEE, employee: res.data });
+    dispatch(fetchEmployeeRequest());
+  });
+};
 
-export const actUpdateEmployeesRequest = (employee) => dispatch => {
-    return (
-        callApi(`employees/${employee.id}`, 'PUT', employee).then(res => {
-            dispatch(actUpdateEmployees(res.data));
-        })
-    );
-}
-
-export const actUpdateEmployees = (employee) => {
-    return {
-        type: Types.UPDATE_EMPLOYEE,
-        employee
-    }
-}
+// export const actUpdateEmployees = (employee) => {
+//     return {
+//         type: Types.UPDATE_EMPLOYEE,
+//         employee
+//     }
+// }

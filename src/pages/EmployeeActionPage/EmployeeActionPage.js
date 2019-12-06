@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { actAddEmployeesRequest, actEditEmployeesRequest, actUpdateEmployeesRequest } from "../../actions";
+import { addEmployeeRequest, editEmployeeRequest, updateEmployeeRequest } from "../../actions";
 
 class EmployeeActionPage extends Component {
   constructor(props) {
@@ -174,13 +174,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, action) => {
   return {
     onAddEmployee: employee => {
-      dispatch(actAddEmployeesRequest(employee));
+      dispatch(addEmployeeRequest(employee));
     },
     onEditEmployee: id => {
-      dispatch(actEditEmployeesRequest(id));
+      dispatch(editEmployeeRequest(id));
     },
     onUpdateEmployee: employee => {
-      dispatch(actUpdateEmployeesRequest(employee));
+      dispatch(updateEmployeeRequest(employee));
     }
   };
 };

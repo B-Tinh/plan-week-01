@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actFetchEmployeesRequest } from "../actions";
+import { fetchEmployeeRequest } from "../actions";
 class InfoEmployees extends Component {
 
   componentDidMount(){
-      this.props.fetchAllEmployees();
+      // this.props.fetchAllEmployees();
   }
   onDelete = (id) => {
     this.props.onDelete(id);
@@ -55,7 +55,7 @@ class InfoEmployees extends Component {
 const mapDispatchToProps = (dispatch, props) => {
   return{
     fetchAllEmployees : () => {
-      dispatch(actFetchEmployeesRequest());
+      dispatch(fetchEmployeeRequest());
     }
   }
 }

@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import InfoEmployees from "./InfoEmployees";
-import { connect } from 'react-redux';
-import { actFetchEmployeesRequest, actDeleteEmployeesRequest } from "../actions";
+import { connect } from "react-redux";
+import { fetchEmployeeRequest, deleteEmployeeRequest } from "../actions";
 
 class EmployerList extends Component {
+  componentDidMount() {
+    this.props.fetchAllEmployees();
+  }
 
-componentDidMount(){
-  this.props.fetchAllEmployees();
-}
-
-onDelete = (id) => {
-  this.props.deleteAllEmployees(id);
-  
-}
+  onDelete = id => {
+    this.props.deleteAllEmployees(id);
+  };
   render() {
     const { employees } = this.props;
     const infoEmployees = employees.map((employee, index) => {
@@ -24,9 +22,8 @@ onDelete = (id) => {
           onDelete={this.onDelete}
         />
       );
-    })
+    });
     return (
-      
       <div>
         <div className="panel panel-primary">
           <div className="panel-heading">
@@ -44,9 +41,7 @@ onDelete = (id) => {
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {infoEmployees}
-              </tbody>
+              <tbody>{infoEmployees}</tbody>
             </table>
           </div>
         </div>
@@ -57,18 +52,18 @@ onDelete = (id) => {
 const mapStateToProps = state => {
   return {
     employees: state.employees
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, props) => {
-  return{
-    fetchAllEmployees : () => {
-      dispatch(actFetchEmployeesRequest());
+  return {
+    fetchAllEmployees: () => {
+      dispatch(fetchEmployeeRequest());
     },
-    deleteAllEmployees : (id) => {
-      dispatch(actDeleteEmployeesRequest(id));
+    deleteAllEmployees: id => {
+      dispatch(deleteEmployeeRequest(id));
     }
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployerList);
