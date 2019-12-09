@@ -12,7 +12,7 @@ const employees = (state = initialState, action) => {
       return [...newState];
     case Types.ADD_EMPLOYEE:
       state.push(action.employee);
-      return state;
+      return [...state];
     case Types.UPDATE_EMPLOYEE:
       state.filter(employee => employee.id !== action.id);
       return [...state];
