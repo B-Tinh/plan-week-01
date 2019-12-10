@@ -5,7 +5,8 @@ const initialState = {};
 const editEmployee = (state = initialState, action) => {
     switch(action.type){
         case Types.EDIT_EMPLOYEE:
-            return action.employee;
+            state = action.employee;
+            return {...state}
         default : return state;
     }
 }

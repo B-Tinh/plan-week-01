@@ -72,7 +72,7 @@ class EmployeeActionPage extends Component {
         userName: txtUserName
       }
     };
-    if (id) {
+    if (id || id === 0) {
       this.props.onUpdateEmployee(employee);
     } else {
       this.props.onAddEmployee(employee)
@@ -92,7 +92,7 @@ class EmployeeActionPage extends Component {
     } = this.state;
     return (
       <div>
-        <h1>{id ? "UPDATE EMPLOYEE" : "ADD EMPLOYEE"}</h1>
+        <h1>{id || id === 0 ? "UPDATE EMPLOYEE" : "ADD EMPLOYEE"}</h1>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <form onSubmit={this.onSave}>
             <div className="form-group">
@@ -158,7 +158,7 @@ class EmployeeActionPage extends Component {
               />
             </div>
             <button type="submit" className="btn btn-primary">
-              {id ? "Update" : "Save"}
+              {id || id === 0 ? "Update" : "Save"}
             </button>
           </form>
         </div>
