@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import employees from './employees';
-import editEmployee from './editEmployee';
+import employees from './listEmployeesReducer';
+import editEmployee from './editEmployeeReducer';
 
 
-const myReducer = combineReducers({
+const rootReducer = combineReducers({
     employees,
     editEmployee,
 });
 
-export default myReducer;
+export default rootReducer;

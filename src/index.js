@@ -6,12 +6,12 @@ import * as serviceWorker from "./serviceWorker";
 
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import myReducer from "./reducers";
+import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  myReducer,
+  rootReducer,
   composeEnhancers(
   applyMiddleware(thunk))
 );

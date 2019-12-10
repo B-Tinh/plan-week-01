@@ -25,6 +25,7 @@ class EmployeeActionPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
     if (nextProps && nextProps.editEmployee) {
       let { editEmployee } = nextProps;
       this.setState({
