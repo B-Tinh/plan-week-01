@@ -11,7 +11,7 @@ const menus = [
     name: "Employee Managenment",
     to: "/employee-list",
     exact: false
-  }
+  },
 ];
 
 const MenuLink = ({ label, to, activeHover }) => {

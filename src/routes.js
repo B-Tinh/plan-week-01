@@ -2,12 +2,18 @@ import React from 'react';
 import HomePage from './pages/HomePage/HomePage'
 import EmployeeListPage from './pages/EmployeeListPage/EmployeeListPage';
 import EmployeeActionPage from './pages/EmployeeActionPage/EmployeeActionPage';
+import Login from './pages/LoginPage/Login';
 
 const routes = [
     {
         path: '/',
         exact: true,
         main: () => <HomePage />
+    },
+    {
+        path: '/employee-login',
+        exact: true,
+        main: () => <Login />
     },
     {
         path: '/employee-list',

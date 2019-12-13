@@ -1,5 +1,6 @@
 import * as Types from "./../constants/ActionTypes";
 import callApi from "./../utils/apiCaller";
+import {myFirebase} from './../base';
 
 export const fetchEmployeeRequest = () => dispatch => {
   return callApi("employees", "", null).then(res => {
@@ -77,3 +78,59 @@ export const updateEmployeeRequest = employee => dispatch => {
 //         employee
 //     }
 // }
+
+export const loginUser = (email, password) => dispatch => {
+  dispatch({type: Types.LOGIN_REQUEST});
+  myFirebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(user => {
+      dispatch({
+        type: Types.LOGIN_SUCCESS,
+        user
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: Types.LOGIN_FAILURE
+      });
+    })
+};
+
+export const logoutUser = () => dispatch => {
+  dispatch({
+    type: Types.LOGOUT_REQUEST
+  });
+  myFirebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch({
+        type: Types.LOGOUT_SUCCESS
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: Types.LOGOUT_FAILURE
+      });
+    });
+};
+
+export const verifyAuth = () => dispatch => {
+  dispatch({
+    type: Types.VERIFY_REQUEST
+  });
+  myFirebase
+    .auth()
+    .onAuthStateChanged(user => {
+      if (user !== null) {
+        dispatch({
+          type: Types.LOGIN_SUCCESS,
+          user
+        });
+      }
+      dispatch({
+        type: Types.VERIFY_SUCCESS
+      });
+    });
+};

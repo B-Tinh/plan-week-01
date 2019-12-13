@@ -12,7 +12,7 @@ class EmployeeActionPage extends Component {
       txtTitle: "",
       txtImage: null,
       txtUserName: "",
-      txtEmail: ""
+      txtEmail: "",
     };
   }
 
@@ -88,7 +88,7 @@ class EmployeeActionPage extends Component {
       txtTitle,
       txtUserName,
       txtEmail,
-      txtImage
+      txtImage,
     } = this.state;
     return (
       <div>
