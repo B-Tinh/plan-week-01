@@ -41,6 +41,7 @@ const loginOutReducer = (state = initialState, action) => {
         logoutError: false
       };
     case Types.LOGOUT_SUCCESS:
+      console.log("Logout success");
       return {
         ...state,
         isLoggingOut: false,

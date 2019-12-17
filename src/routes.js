@@ -3,17 +3,23 @@ import HomePage from './pages/HomePage/HomePage'
 import EmployeeListPage from './pages/EmployeeListPage/EmployeeListPage';
 import EmployeeActionPage from './pages/EmployeeActionPage/EmployeeActionPage';
 import Login from './pages/LoginPage/Login';
+import Logout from './pages/LogoutPage/Logout';
 
 const routes = [
     {
-        path: '/',
-        exact: true,
+        path: '/employee-home',
+        exact: false,
         main: () => <HomePage />
     },
     {
-        path: '/employee-login',
+        path: '/',
         exact: true,
-        main: () => <Login />
+        main: ({history}) => <Login history={history}/>
+    },
+    {
+        path: '/employee-logout',
+        exact: false,
+        main: ({history}) => <Logout history={history} />
     },
     {
         path: '/employee-list',
@@ -31,4 +37,7 @@ const routes = [
         main: ({match, history}) => <EmployeeActionPage match={match} history={history}/>
     }
 ];
-export default routes;
+
+
+  
+  export default routes;

@@ -4,7 +4,7 @@ import { Route, Link } from "react-router-dom";
 const menus = [
   {
     name: "Home Page",
-    to: "/",
+    to: "/employee-home",
     exact: true
   },
   {
@@ -12,6 +12,11 @@ const menus = [
     to: "/employee-list",
     exact: false
   },
+  {
+    name: "LogOut",
+    to: "/employee-logout",
+    exact: false
+  }
 ];
 
 const MenuLink = ({ label, to, activeHover }) => {
