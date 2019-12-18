@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EmployerList from "./../../components/EmployerList";
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 class EmployeeListPage extends Component {
   render() {
     return (
@@ -16,4 +17,4 @@ class EmployeeListPage extends Component {
   }
 }
 
-export default EmployeeListPage;
+export default connect()(EmployeeListPage);

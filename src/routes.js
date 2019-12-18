@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/employee-home',
         exact: false,
-        main: () => <HomePage />
+        main: ({history}) => <HomePage history={history}/>
     },
     {
         path: '/',
@@ -24,7 +24,7 @@ const routes = [
     {
         path: '/employee-list',
         exact: false,
-        main: () => <EmployeeListPage />
+        main: ({history}) => <EmployeeListPage history={history}/>
     },
     {
         path: '/employee/add',

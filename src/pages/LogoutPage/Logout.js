@@ -4,19 +4,17 @@ import { logoutUser } from "./../../actions";
 class Logout extends Component {
   handleLogout = (e) => {
     e.preventDefault();
-    const { dispatch, history } = this.props;
-    dispatch(logoutUser());   
-    history.push("/")
+    this.props.logoutUser();       
   };
   render() {
-    const { isLoggingOut, logoutError, history } = this.props;
-    // if(isLoggingOut){
-    //   history.push("/")
-    // }
+    const { isLoggingOut, logoutError, history, isAuthenticated } = this.props;
+    if(!isAuthenticated){
+        history.push("/")
+      }
     return (
       <div>
-        <h1>This is your app's protected area.</h1>
-        <p>Any routes here will also be protected</p>
+        <h1>This is your app</h1>
+        <p>You can Logout here</p>
         <button
           type="button"
           class="btn btn-danger"
@@ -35,7 +33,16 @@ const mapStateToProps = state => {
   return {
     isLoggingOut: state.loginOutReducer.isLoggingOut,
     logoutError: state.loginOutReducer.logoutError,
+    isAuthenticated: state.loginOutReducer.isAuthenticated
   };
 };
 
-export default connect(mapStateToProps, null)(Logout);
+const mapDispatchToProps = (dispatch, action) => {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);

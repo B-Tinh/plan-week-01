@@ -135,3 +135,24 @@ export const verifyAuth = () => dispatch => {
       });
     });
 };
+
+// export const deleteUser = (email, password) => dispatch => {
+//   dispatch({type: Types.DELETE_REQUEST});
+//   myFirebase
+//     .auth()
+//     .currentUser
+//     .delete(email, password)
+//     .then(user => {
+//       console.log(user)
+//       dispatch({
+//         type: Types.DELETE_SUCCESS,
+//         user
+//       });
+//     })
+//     .catch(error => {
+//       dispatch({
+//         type: Types.DELETE_FAILURE
+//       });
+//     })
+// };
+
