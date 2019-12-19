@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "./../../actions";
-// import { signIn } from './../../actions';
 
 class Login extends Component {
   constructor(props) {
@@ -26,8 +25,7 @@ class Login extends Component {
       [name]: value
     });
   };
-  render() {
-    
+  render() {   
     const { email, password } = this.state;
     const { loginError, isAuthenticated, history } = this.props ;  
     if(isAuthenticated){
@@ -58,8 +56,8 @@ class Login extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              {loginError && ( <p> Incorrect email or password</p>)}
-              <button type="submit" className="btn btn-primary" onClick={this.onPush}>
+              {loginError ? ( <p style={{color: 'red'}}> Incorrect email or password</p>) : ""}
+              <button type="submit" className="btn btn-primary">
                 Login
               </button>
             </form>

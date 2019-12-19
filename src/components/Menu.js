@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
-import { connect } from "react-redux";
 
 const menus = [
   {
@@ -49,34 +48,22 @@ class Menu extends Component {
       );
     });
     return (
-      <div>
-        {!this.props.isAuthenticated ? (
-          ""
-        ) : (
-          <div className="navbar navbar-default">
-            <a href="abc" className="navbar-brand">
-              PlanWeek04
-            </a>
-            <ul className="nav navbar-nav">
-              {/* <li className="active">
+      <div className="navbar navbar-default">
+        <a href="abc" className="navbar-brand">
+          PlanWeek04
+        </a>
+        <ul className="nav navbar-nav">
+          {/* <li className="active">
               <a href="abc">Home Page</a>
             </li>
             <li>
               <a href="abc">Employee Managenment</a>
             </li> */}
-              {showMenu}
-            </ul>
-          </div>
-        )}
+          {showMenu}
+        </ul>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.loginOutReducer.isAuthenticated
-  };
-};
-
-export default connect(mapStateToProps, null)(Menu);
+export default Menu;

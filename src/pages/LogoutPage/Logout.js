@@ -7,8 +7,8 @@ class Logout extends Component {
     this.props.logoutUser();       
   };
   render() {
-    const { isLoggingOut, logoutError, history, isAuthenticated } = this.props;
-    if(!isAuthenticated){
+    const { isLoggingOut, logoutError, history, user } = this.props;
+    if(user === null){
         history.push("/")
       }
     return (
@@ -33,7 +33,7 @@ const mapStateToProps = state => {
   return {
     isLoggingOut: state.loginOutReducer.isLoggingOut,
     logoutError: state.loginOutReducer.logoutError,
-    isAuthenticated: state.loginOutReducer.isAuthenticated
+    user: state.loginOutReducer.user
   };
 };
 
