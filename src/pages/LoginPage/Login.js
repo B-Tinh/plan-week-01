@@ -27,7 +27,8 @@ class Login extends Component {
   };
   render() {   
     const { email, password } = this.state;
-    const { loginError, isAuthenticated, history } = this.props ;  
+    const { loginError, isAuthenticated, history } = this.props ; 
+    console.log('loginError', loginError) 
     if(isAuthenticated){
       history.push('/employee-home')
     }  
@@ -56,7 +57,7 @@ class Login extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              {loginError ? ( <p style={{color: 'red'}}> Incorrect email or password</p>) : ""}
+              {loginError && ( <p style={{color: 'red'}}> Incorrect email or password</p>) }
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
@@ -71,7 +72,9 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     loginError: state.loginOutReducer.loginError,
-    isAuthenticated: state.loginOutReducer.isAuthenticated
+    isAuthenticated: state.loginOutReducer.isAuthenticated,
+    user: state.loginOutReducer.user
+
   };
 }
 

@@ -8,6 +8,7 @@ class Logout extends Component {
   };
   render() {
     const { isLoggingOut, logoutError, history, user } = this.props;
+
     if(user === null){
         history.push("/")
       }

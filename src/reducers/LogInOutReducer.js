@@ -7,7 +7,7 @@ const initialState = {
   logoutError: false,
   isAuthenticated: false,
   user: null
-}
+};
 
 const loginOutReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,6 +16,7 @@ const loginOutReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: false,
+        loginError: false,
         isAuthenticated: true,
         user: action.user || []
       };
@@ -40,6 +41,14 @@ const loginOutReducer = (state = initialState, action) => {
         ...state,
         isLoggingOut: false,
         logoutError: true
+      };
+    case Types.CHECK_CURRENT_USER:
+      if (!action.user) {
+        action.history.push("/");
+      }
+      return {
+        ...state,
+        user: action.user
       };
     default:
       return state;

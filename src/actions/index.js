@@ -52,8 +52,7 @@ export const loginUser = (email, password) => dispatch => {
     .signInWithEmailAndPassword(email, password)
     .then(result => {
       const { user } = result;
-      console.log(user);
-
+      console.log(user.uid);
       dispatch({
         type: Types.LOGIN_SUCCESS,
         user
@@ -65,6 +64,15 @@ export const loginUser = (email, password) => dispatch => {
         type: Types.LOGIN_FAILURE
       });
     });
+};
+
+export const checkCurrentUser = history => dispatch => {
+  const user = myFirebase.auth().currentUser;
+  dispatch({
+    type: Types.CHECK_CURRENT_USER,
+    user,
+    history
+  });
 };
 
 export const logoutUser = () => dispatch => {

@@ -5,6 +5,9 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Layout from "./layouts/Layout";
 
 class App extends Component {
+  logUpdate = () => {
+    console.log('Current URL: ' + window.location.pathname);
+}
   render() {
     return <Router>{this.showMenuContent(routes)}</Router>;
   }
@@ -13,8 +16,8 @@ class App extends Component {
     if (routes.length > 0) {
       result = routes.map((router, index) => {
         const Main = router.main;
-        let content = ({ history, match }) => (
-          <Layout history={history} match={match}>
+        let content = ({ history, match, logUpdate}) => (
+          <Layout history={history} match={match} onChange={logUpdate}>
             <Main />
           </Layout>
         );
