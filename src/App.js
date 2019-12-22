@@ -3,21 +3,21 @@ import "./App.css";
 import routes from "./routes";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Layout from "./layouts/Layout";
+import { connect } from "react-redux";
 
 class App extends Component {
-  logUpdate = () => {
-    console.log('Current URL: ' + window.location.pathname);
-}
+
   render() {
     return <Router>{this.showMenuContent(routes)}</Router>;
   }
   showMenuContent = routes => {
     let result = null;
+    const { user } = this.props;
     if (routes.length > 0) {
       result = routes.map((router, index) => {
         const Main = router.main;
-        let content = ({ history, match, logUpdate}) => (
-          <Layout history={history} match={match} onChange={logUpdate}>
+        let content = ({ history, match }) => (
+          <Layout user={user} history={history} match={match} >
             <Main />
           </Layout>
         );
@@ -40,4 +40,10 @@ class App extends Component {
   };
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    user: state.loginOutReducer.user
+  };
+};
+
+export default connect(mapStateToProps)(App);

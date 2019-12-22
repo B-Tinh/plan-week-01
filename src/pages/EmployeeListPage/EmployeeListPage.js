@@ -2,7 +2,19 @@ import React, { Component } from "react";
 import EmployerList from "./../../components/EmployerList";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
+import { checkCurrentUser } from "../../actions";
+
 class EmployeeListPage extends Component {
+  componentDidMount() {
+    const { history, user } = this.props;
+    if (user) {
+      this.props.checkCurrentUser(history);
+    } else {
+      history.push("/");
+    }
+    console.log("mounted");
+  }
+
   render() {
     return (
       <div>
@@ -17,4 +29,13 @@ class EmployeeListPage extends Component {
   }
 }
 
-export default connect()(EmployeeListPage);
+const mapDispatchToProps = (dispatch, action) => {
+  return {
+    checkCurrentUser: history => {
+      dispatch(checkCurrentUser(history));
+    }
+  };
+};
+
+
+export default connect(null, mapDispatchToProps)(EmployeeListPage);

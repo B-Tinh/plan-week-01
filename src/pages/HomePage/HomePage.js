@@ -4,8 +4,13 @@ import { checkCurrentUser } from "../../actions";
 
 class HomePage extends Component {
   componentDidMount() {
-    const { history } = this.props;
-    this.props.checkCurrentUser(history);
+    const { history, user } = this.props;
+    if (user) {
+      this.props.checkCurrentUser(history);
+    } else {
+      history.push("/");
+    }
+    console.log("mounted");
   }
 
   render() {
@@ -17,12 +22,6 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.loginOutReducer.user
-  };
-};
-
 const mapDispatchToProps = (dispatch, action) => {
   return {
     checkCurrentUser: history => {
@@ -31,4 +30,4 @@ const mapDispatchToProps = (dispatch, action) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(null, mapDispatchToProps)(HomePage);

@@ -6,18 +6,18 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      email: "test@abc.com",
+      password: "test1234"
     };
   }
 
-  handleSubmit = e => {    
+  handleSubmit = e => {
     e.preventDefault();
-    const { email, password } = this.state;   
-    this.props.loginUser(email, password)
-     
+    const { history } = this.props;
+    const { email, password } = this.state;
+    this.props.loginUser(email, password).then(() => history.push('/employee-home'));
   };
-  handleChange = e => {  
+  handleChange = e => {
     let target = e.target;
     let name = target.name;
     let value = target.value;
@@ -25,49 +25,45 @@ class Login extends Component {
       [name]: value
     });
   };
-  render() {   
+  render() {
     const { email, password } = this.state;
-    const { loginError, isAuthenticated, history } = this.props ; 
-    console.log('loginError', loginError) 
-    if(isAuthenticated){
-      history.push('/employee-home')
-    }  
-      return (
-        <div>
-          <h1>Login</h1>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Email:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>PassWord:</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-              </div>
-              {loginError && ( <p style={{color: 'red'}}> Incorrect email or password</p>) }
-              <button type="submit" className="btn btn-primary">
-                Login
+    const { loginError } = this.props;
+    return (
+      <div>
+        <h1>Login</h1>
+        <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="email"
+                value={email}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>PassWord:</label>
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            </div>
+            {loginError && (<p style={{ color: 'red' }}> Incorrect email or password</p>)}
+            <button type="submit" className="btn btn-primary">
+              Login
               </button>
-            </form>
-          </div>
+          </form>
         </div>
-      );
-    }
-    
+      </div>
+    );
   }
+
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -80,9 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, action) => {
   return {
-    loginUser: (email, password) => {
-      dispatch(loginUser(email, password))
-    }
+    loginUser: (email, password) => dispatch(loginUser(email, password))
   }
 }
 

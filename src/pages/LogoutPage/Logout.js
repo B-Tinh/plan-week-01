@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "./../../actions";
+import { checkCurrentUser } from "../../actions";
+
 class Logout extends Component {
+
+  componentDidMount() {
+    const { history, user } = this.props;
+    if (user) {
+      this.props.checkCurrentUser(history);
+    } else {
+      history.push("/");
+    }
+    console.log("mounted");
+  }
+
   handleLogout = (e) => {
     e.preventDefault();
     this.props.logoutUser();       
   };
+
   render() {
     const { isLoggingOut, logoutError, history, user } = this.props;
 
@@ -42,6 +56,9 @@ const mapDispatchToProps = (dispatch, action) => {
   return {
     logoutUser: () => {
       dispatch(logoutUser())
+    },
+    checkCurrentUser: history => {
+      dispatch(checkCurrentUser(history));
     }
   }
 }

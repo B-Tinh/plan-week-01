@@ -47,32 +47,44 @@ export const updateEmployeeRequest = employee => dispatch => {
 };
 
 export const loginUser = (email, password) => dispatch => {
-  myFirebase
+  console.log('start promise');
+  const promise = new Promise((resolve, reject)=>{
+    myFirebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(result => {
       const { user } = result;
-      console.log(user.uid);
+      console.log(result);
+      console.log(user);
       dispatch({
         type: Types.LOGIN_SUCCESS,
         user
       });
+      resolve();
     })
     .catch(error => {
       console.log(error);
       dispatch({
         type: Types.LOGIN_FAILURE
       });
+      reject();
     });
+  });
+  console.log(promise); 
+  return promise;
 };
 
 export const checkCurrentUser = history => dispatch => {
   const user = myFirebase.auth().currentUser;
-  dispatch({
-    type: Types.CHECK_CURRENT_USER,
-    user,
-    history
-  });
+  myFirebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, 'test1234').catch(function (error) {
+      dispatch({
+        type: Types.CHECK_CURRENT_USER,
+        user: false,
+      });
+      history.push('/');
+    });
 };
 
 export const logoutUser = () => dispatch => {

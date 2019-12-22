@@ -43,9 +43,6 @@ const loginOutReducer = (state = initialState, action) => {
         logoutError: true
       };
     case Types.CHECK_CURRENT_USER:
-      if (!action.user) {
-        action.history.push("/");
-      }
       return {
         ...state,
         user: action.user
