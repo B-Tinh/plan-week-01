@@ -4,9 +4,9 @@ import { checkCurrentUser } from "../../actions";
 
 class HomePage extends Component {
   componentDidMount() {
-    const { history, user } = this.props;
+    const { history, user, password } = this.props;
     if (user) {
-      this.props.checkCurrentUser(history);
+      this.props.checkCurrentUser(history, password);
     } else {
       history.push("/");
     }
@@ -21,13 +21,17 @@ class HomePage extends Component {
     );
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    password: state.loginOutReducer.password,
+  }
+};
 const mapDispatchToProps = (dispatch, action) => {
   return {
-    checkCurrentUser: history => {
-      dispatch(checkCurrentUser(history));
+    checkCurrentUser: (history, password) => {
+      dispatch(checkCurrentUser(history, password));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

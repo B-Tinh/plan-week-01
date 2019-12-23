@@ -6,9 +6,9 @@ import { checkCurrentUser } from "../../actions";
 class Logout extends Component {
 
   componentDidMount() {
-    const { history, user } = this.props;
+    const { history, user, password } = this.props;
     if (user) {
-      this.props.checkCurrentUser(history);
+      this.props.checkCurrentUser(history, password);
     } else {
       history.push("/");
     }
@@ -48,17 +48,20 @@ const mapStateToProps = state => {
   return {
     isLoggingOut: state.loginOutReducer.isLoggingOut,
     logoutError: state.loginOutReducer.logoutError,
-    user: state.loginOutReducer.user
+    user: state.loginOutReducer.user,
+    password: state.loginOutReducer.password,
+
   };
 };
+
 
 const mapDispatchToProps = (dispatch, action) => {
   return {
     logoutUser: () => {
       dispatch(logoutUser())
     },
-    checkCurrentUser: history => {
-      dispatch(checkCurrentUser(history));
+    checkCurrentUser: (history, password) => {
+      dispatch(checkCurrentUser(history, password));
     }
   }
 }

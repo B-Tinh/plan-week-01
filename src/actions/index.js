@@ -58,7 +58,8 @@ export const loginUser = (email, password) => dispatch => {
       console.log(user);
       dispatch({
         type: Types.LOGIN_SUCCESS,
-        user
+        user,
+        password
       });
       resolve();
     })
@@ -74,11 +75,11 @@ export const loginUser = (email, password) => dispatch => {
   return promise;
 };
 
-export const checkCurrentUser = history => dispatch => {
+export const checkCurrentUser = (history, password) => dispatch => {
   const user = myFirebase.auth().currentUser;
   myFirebase
     .auth()
-    .signInWithEmailAndPassword(user.email, 'test1234').catch(function (error) {
+    .signInWithEmailAndPassword(user.email, password).catch(function (error) {
       dispatch({
         type: Types.CHECK_CURRENT_USER,
         user: false,

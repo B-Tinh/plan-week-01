@@ -18,7 +18,9 @@ const loginOutReducer = (state = initialState, action) => {
         isLoggingIn: false,
         loginError: false,
         isAuthenticated: true,
-        user: action.user || []
+        user: action.user || [],
+        password: action.password
+
       };
     case Types.LOGIN_FAILURE:
       console.log("Login failed");
@@ -45,7 +47,7 @@ const loginOutReducer = (state = initialState, action) => {
     case Types.CHECK_CURRENT_USER:
       return {
         ...state,
-        user: action.user
+        user: action.user,
       };
     default:
       return state;
